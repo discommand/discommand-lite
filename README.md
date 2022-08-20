@@ -10,13 +10,13 @@ discommand, but Command Handler only
 1. Stable version
 
 ```sh
-npm i discommand
+npm i discommand-lite
 ```
 
 2. Devlopment version
 
 ```sh
-npm i @discommand/lite@next
+npm i discommand-lite@next
 ```
 
 ## Example
