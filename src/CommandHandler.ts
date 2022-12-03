@@ -22,7 +22,9 @@ export class CommandHandler {
     this.client.once('ready', () => {
       this.client.application?.commands.create({
         name: modules.name,
+        nameLocalizations: modules.nameLocalizations,
         description: modules.description,
+        descriptionLocalizations: modules.descriptionLocalizations,
         defaultPermission: modules.defaultPermission,
         // @ts-ignore
         type: modules.type,
