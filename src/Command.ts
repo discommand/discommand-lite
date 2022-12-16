@@ -1,19 +1,17 @@
 import {
-  ApplicationCommandOptionData,
-  ApplicationCommandType,
-  ChatInputCommandInteraction,
-  Locale,
-  PermissionResolvable,
+  type LocalizationMap,
+  type ApplicationCommandOptionData,
+  type ApplicationCommandType,
+  type ChatInputCommandInteraction,
+  type PermissionResolvable,
 } from 'discord.js'
 
-export class Command {
+export abstract class Command {
   name: string = ''
-  // @ts-ignore
-  nameLocalizations?: { [Locale]: string }
+  nameLocalizations?: LocalizationMap
   description: string = ''
-  // @ts-ignore
-  descriptionLocalizations: { [Locale]: string }
-  type?: ApplicationCommandType = ApplicationCommandType.ChatInput
+  descriptionLocalizations?: LocalizationMap
+  type?: ApplicationCommandType
   options?: ApplicationCommandOptionData[]
   defaultPermission?: PermissionResolvable
   execute(interaction: ChatInputCommandInteraction): void {}

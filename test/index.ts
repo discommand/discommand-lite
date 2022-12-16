@@ -11,5 +11,11 @@ const cmd = new CommandHandler(client, {
   directory: path.join(__dirname, 'commands'),
 })
 
+const a = () => {
+  cmd.reloadAll()
+}
+
+setTimeout(a, 15000)
+
 cmd.loadAll()
 client.login(config.token)
