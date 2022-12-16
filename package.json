@@ -1,7 +1,8 @@
 {
-  "name": "discommand-lite",
+  "name": "@discommand/lite",
   "version": "1.2.0",
   "description": "discommand, but Command Handler only",
+  "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/discommand/discommand-lite",
