@@ -36,9 +36,6 @@ export class CommandHandler {
         nameLocalizations: modules.nameLocalizations,
         description: modules.description,
         descriptionLocalizations: modules.descriptionLocalizations,
-        defaultPermission: modules.defaultPermission,
-        // @ts-ignore
-        type: modules.type,
         options: modules.options,
       })
     })
@@ -73,7 +70,7 @@ export class CommandHandler {
         const folderDir = readdirSync(`${this.options.directory}/${folder}`)
         for (const file of folderDir) {
           const tempModules = require(`${this.options.directory}/${folder}/${file}`)
-          let modules
+          let modules: Command
           if (!tempModules.default) {
             modules = new tempModules()
           } else {
@@ -104,7 +101,7 @@ export class CommandHandler {
         const folderDir = readdirSync(`${this.options.directory}/${folder}`)
         for (const file of folderDir) {
           const tempModules = require(`${this.options.directory}/${folder}/${file}`)
-          let modules
+          let modules: Command
           if (!tempModules.default) {
             modules = new tempModules()
           } else {
