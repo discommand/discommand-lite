@@ -2,7 +2,7 @@ import {
   type LocalizationMap,
   type ApplicationCommandOptionData,
   type ChatInputCommandInteraction,
-  ChatInputApplicationCommandData,
+  type ChatInputApplicationCommandData,
 } from 'discord.js'
 
 export abstract class Command implements ChatInputApplicationCommandData {
