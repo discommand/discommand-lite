@@ -13,7 +13,7 @@ discommand, but Command Handler only
 npm i @discommand/lite
 ```
 
-2. Devlopment version
+2. Development version
 
 ```sh
 npm i @discommand/lite@next
@@ -28,14 +28,13 @@ index.ts
 ```ts
 import { CommandHandler, LoadType } from '@discommand/lite'
 import { Client, GatewayIntentBits } from 'discord.js'
-import * as path from 'path'
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 })
 const cmd = new CommandHandler(client, {
   loadType: LoadType.File,
-  directory: path.join(__dirname, 'commands'),
+  directory: __dirname + '/commands',
 })
 
 cmd.loadAll()
@@ -64,14 +63,13 @@ index.js
 ```js
 const { CommandHandler, LoadType } = require('@discommand/lite')
 const { Client, GatewayIntentBits } = require('discord.js')
-const path = require('path')
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 })
 const cmd = new CommandHandler(client, {
   loadType: LoadType.File,
-  directory: path.join(__dirname, 'commands'),
+  directory: __dirname + 'commands',
 })
 
 cmd.loadAll()

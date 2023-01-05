@@ -4,6 +4,6 @@ export enum LoadType {
 }
 
 export interface Options {
-  loadType: LoadType
+  loadType?: LoadType
   directory: string
 }

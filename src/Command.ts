@@ -1,9 +1,10 @@
-import {
-  type LocalizationMap,
-  type ApplicationCommandOptionData,
-  type ChatInputCommandInteraction,
-  type ChatInputApplicationCommandData,
+import type {
+  LocalizationMap,
+  ApplicationCommandOptionData,
+  ChatInputCommandInteraction,
+  ChatInputApplicationCommandData,
 } from 'discord.js'
+import { ApplicationCommandType } from 'discord.js'
 
 export abstract class Command implements ChatInputApplicationCommandData {
   name: string = ''
@@ -11,5 +12,21 @@ export abstract class Command implements ChatInputApplicationCommandData {
   description: string = ''
   descriptionLocalizations?: LocalizationMap
   options?: ApplicationCommandOptionData[]
-  execute(interaction: ChatInputCommandInteraction): void {}
+  public data?: ChatInputApplicationCommandData
+  abstract execute(interaction: ChatInputCommandInteraction): any
+
+  public toJSON(): ChatInputApplicationCommandData {
+    if (this.data) {
+      return { ...this.data }
+    } else {
+      return {
+        type: ApplicationCommandType.ChatInput,
+        name: this.name,
+        nameLocalizations: this.nameLocalizations,
+        description: this.description,
+        descriptionLocalizations: this.descriptionLocalizations,
+        options: this.options,
+      }
+    }
+  }
 }
