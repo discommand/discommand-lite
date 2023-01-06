@@ -6,14 +6,16 @@ export class CommandHandler {
   public constructor(
     public readonly client: Client,
     public readonly options: Options
-  ) {}
+  ) {
+    if (!options.loadType)
+      readdirSync(options.directory, { withFileTypes: true }).forEach(a => {
+        if (a.isFile()) options.loadType = LoadType.File
+        else if (a.isDirectory()) options.loadType = LoadType.Folder
+      })
+  }
 
   public modules: Collection<string, Command> = new Collection()
 
-  /**
-   *
-   * @private
-   */
   private register(modules: Command) {
     console.info(`[discommand-lite] ${modules.name} is Loaded.`)
     this.modules.set(modules.name, modules)
@@ -29,17 +31,11 @@ export class CommandHandler {
   }
 
   public deloadAll() {
-    const dir = readdirSync(this.options.directory, { withFileTypes: true })
-
-    if (!this.options.loadType)
-      dir.forEach(a => {
-        if (a.isFile()) this.options.loadType = LoadType.File
-        else if (a.isDirectory()) this.options.loadType = LoadType.Folder
-      })
+    const dir = readdirSync(this.options.directory)
 
     if (this.options.loadType === LoadType.File) {
       for (const file of dir) {
-        const tempModules = require(`${this.options.directory}/${file.name}`)
+        const tempModules = require(`${this.options.directory}/${file}`)
         let modules: Command
         if (!tempModules.default) {
           modules = new tempModules()
@@ -47,15 +43,13 @@ export class CommandHandler {
           modules = new tempModules.default()
         }
 
-        this.deregister(modules, `${this.options.directory}/${file.name}`)
+        this.deregister(modules, `${this.options.directory}/${file}`)
       }
     } else if (this.options.loadType === LoadType.Folder) {
       for (const folder of dir) {
-        const folderDir = readdirSync(
-          `${this.options.directory}/${folder.name}`
-        )
+        const folderDir = readdirSync(`${this.options.directory}/${folder}`)
         for (const file of folderDir) {
-          const tempModules = require(`${this.options.directory}/${folder.name}/${file}`)
+          const tempModules = require(`${this.options.directory}/${folder}/${file}`)
           let modules: Command
           if (!tempModules.default) {
             modules = new tempModules()
@@ -69,17 +63,11 @@ export class CommandHandler {
   }
 
   public loadAll() {
-    const dir = readdirSync(this.options.directory, { withFileTypes: true })
-
-    if (!this.options.loadType)
-      dir.forEach(a => {
-        if (a.isFile()) this.options.loadType = LoadType.File
-        else if (a.isDirectory()) this.options.loadType = LoadType.Folder
-      })
+    const dir = readdirSync(this.options.directory)
 
     if (this.options.loadType === LoadType.File) {
       for (const file of dir) {
-        const tempModules = require(`${this.options.directory}/${file.name}`)
+        const tempModules = require(`${this.options.directory}/${file}`)
         let modules
         if (!tempModules.default) {
           modules = new tempModules()
@@ -90,11 +78,9 @@ export class CommandHandler {
       }
     } else if (this.options.loadType === LoadType.Folder) {
       for (const folder of dir) {
-        const folderDir = readdirSync(
-          `${this.options.directory}/${folder.name}`
-        )
+        const folderDir = readdirSync(`${this.options.directory}/${folder}`)
         for (const file of folderDir) {
-          const tempModules = require(`${this.options.directory}/${folder.name}/${file}`)
+          const tempModules = require(`${this.options.directory}/${folder}/${file}`)
           let modules: Command
           if (!tempModules.default) {
             modules = new tempModules()

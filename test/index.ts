@@ -1,4 +1,4 @@
-import { CommandHandler /* LoadType */ } from '../dist'
+import { CommandHandler } from '../dist'
 import { Client, GatewayIntentBits } from 'discord.js'
 import * as path from 'path'
 
